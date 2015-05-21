@@ -6,13 +6,13 @@
 #include "node.h"
 
 class robot {
-	
+
 	virtual vector<node*> findPath(node*, node*);
-	
+
 };
 
-class robot_dumb : public robot {
-	
+class robot_left : public robot {
+
 };
 
 #endif
