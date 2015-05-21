@@ -1,23 +1,23 @@
 #ifndef _H_NODE
 #define _H_NODE
 
-//TODO should this be a struct? Are there any performance issues with this?
+// TODO should this be a struct? Are there any performance issues with this?
 class node {
-	public:
-		
-		//Ctor
-		node(int, int);
-		
-		//Position
-		int x;
-		int y;
-		
-		//Kanten
-		node *n;
-		node *e;
-		node *s;
-		node *w;
-		
+public:
+
+	//Ctor
+	node(int, int);
+
+	//Position
+	int x;
+	int y;
+
+	//Kanten
+	node *n;
+	node *e;
+	node *s;
+	node *w;
+
 };
 
 #endif
