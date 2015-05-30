@@ -6,7 +6,7 @@ class node {
 public:
 
 	//Ctor
-	node(int, int);
+	node(int x, int y);
 
 	//Position
 	int x;
