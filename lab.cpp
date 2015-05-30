@@ -1,6 +1,7 @@
 #include "lab.h"
 #include <getopt.h>
 #include <assert.h>
+#include <thread>
 
 #define NUMROBOTS 3;
 
@@ -134,24 +135,71 @@ void lab::findStartAndEnd(){
 	}
 }
 
-void lab::printLab(){
+void lab::printLab(vector<node*> path){
+	int stepOn = 0;
+
 	for(int i = 0; i < this->height; i++){
 		for(int j = 0; j < this->width; j++){
 			if(this->labyrinth[i][j] == nullptr){
 				cout << "#";
 			}
 			else{
-				cout << " ";
+				for(int k = 0; k < path.size(); k++){
+					if(this->labyrinth[i][j] == path[k]){
+						cout << "r";
+						stepOn = 1;
+					}
+				}
+				if(!stepOn){
+					cout << " ";
+				}
+				stepOn = 0;
 			}
 		}
 		cout << endl;
 	}
 }
 
+void lab::startRobots(int type, void* args){
+	//erzeugt ein this-> für static function
+	lab *das = static_cast<lab*>(args);
+	
+	das->robots.resize(3);
+
+	int i;
+
+	//r.lock();
+
+	for(i = 0; i < 3; i++){
+		if(das->robots[i] == nullptr){
+			switch(type){
+				case 1:
+					das->robots[i] = new robot_left;
+					break;
+				case 2:
+					das->robots[i] = new hubot;
+					break;
+				case 3:
+					das->robots[i] = new joshbot;
+					break;
+				default:
+					break;
+			}
+			break;
+		}
+	}
+
+	//r.unlock();
+	das->robots[i]->findPath(das->start, das->end);
+
+	das->printLab(das->robots[i]->path);
+}
+
 void startMazerun(int argc, char* argv[]){
     int cmd;
 	int error = 0;
     int cmdOptt[3];
+	int numRobots = 0;
     string temp;
     int tempNum;
 
@@ -166,6 +214,7 @@ void startMazerun(int argc, char* argv[]){
                     break;
                 }
                 cmdOptt[tempNum] = 1;
+				robots++;
                 break;
             case 'h':
                 print_usage(argv[0]);
@@ -186,17 +235,34 @@ void startMazerun(int argc, char* argv[]){
     //wi want the name of the file saved to the string variable mazefile
     string mazefile(argv[optind]);
 	*/
-	
-	string mazefile = "maze5_cavern.txt";
-	
+
+	string mazefile = "maze1_small.txt";
+
     lab *labyrinth = new lab(mazefile);
-	
+
 	labyrinth->connectNodes();
 
     labyrinth->findStartAndEnd();
 
-	labyrinth->printLab();
-	
+	//labyrinth->printLab();
+
+	/*
+	if(cmdOptt[0] == 1){
+		thread th1(labyrinth->startRobots, 1);
+		th1.join();
+	}
+	if(cmdOptt[1] == 1){
+		thread th2(labyrinth->startRobots, 2);
+		th2.join();
+	}
+	if(cmdOptt[2] == 1){
+		thread th3(labyrinth->startRobots, 3);
+		th3.join();
+	}
+	*/
+
+	labyrinth->startRobots(1, labyrinth);
+
 	delete labyrinth;
 }
 

@@ -4,9 +4,7 @@
 #include "robot.h"
 #include "node.h"
 #include <string>
-#include <iostream>
 #include <fstream>
-#include <vector>
 
 using namespace std;
 
@@ -20,10 +18,12 @@ public:
     node *start;
     node *end;
     void findStartAndEnd();
-    void printLab();
+    void printLab(vector<node*> path);
     void connectNodes();
+	static void startRobots(int type, void* args);
 private:
     vector<vector<node*>> labyrinth;
+	vector<robot*> robots;
     int width;
     int height;
 };
@@ -32,4 +32,5 @@ void startMazerun(int argc, char* argv[]);
 
 string CharAToString(char* arr);
 void print_usage(char *name);
+
 #endif
