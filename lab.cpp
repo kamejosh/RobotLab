@@ -108,21 +108,21 @@ void lab::findStartAndEnd(){
 			break;
 		}
 	}
-	if(this->start == nullptr){
+	if(this->end == nullptr){
 		for(int i = 0; i < this->height; i++){
 			if(this->labyrinth[this->width-1][i] != nullptr && this->labyrinth[this->width-1][i] != this->start){
 				this->end = this->labyrinth[width-1][i];
 				break;
 			}
 		}
-		if(this->start == nullptr){
+		if(this->end == nullptr){
 			for(int i = this->width -1; i >= 0; i--){
 				if(this->labyrinth[height-1][i] != nullptr && this->labyrinth[height-1][i] != this->start){
 					this->end = this->labyrinth[height-1][i];
 					break;
 				}
 			}
-			if(this->start == nullptr){
+			if(this->end == nullptr){
 				for(int i = this->height -1; i >= 0; i--){
 					if(this->labyrinth[i][0] != nullptr && this->labyrinth[i][0] != this->start){
 						this->end = this->labyrinth[i][0];
@@ -187,7 +187,7 @@ void startMazerun(int argc, char* argv[]){
     string mazefile(argv[optind]);
 	*/
 	
-	string mazefile = "maze1_small.txt";
+	string mazefile = "maze5_cavern.txt";
 	
     lab *labyrinth = new lab(mazefile);
 	
