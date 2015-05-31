@@ -1,6 +1,4 @@
 #include "lab.h"
-#include <getopt.h>
-#include <assert.h>
 #include <thread>
 #include <cstring>
 
@@ -17,14 +15,20 @@ lab::lab(string name){
     while(getline(filename, tempvalue)){
 		if(once == 0){
 			this->labyrinth.resize(tempvalue.length()-1);
+
 			for(unsigned int i = 0; i < tempvalue.length(); i++){
 				this->labyrinth[i].resize(tempvalue.length()-1);
 			}
+
 			once = 1;
 			this->width = tempvalue.length()-1;
+            //cout << this->width << endl;
 			this->height = tempvalue.length()-1;
+            //cout << this->height << endl;
 		}
-        for(unsigned int i = 0; i < tempvalue.length(); i++){
+
+        for(unsigned int i = 0; i < tempvalue.length()-1; i++){
+            //cout << line << endl;
             if(tempvalue[i] == '#'){
 				this->labyrinth[line][i] = nullptr;
             }
@@ -32,6 +36,7 @@ lab::lab(string name){
 				this->labyrinth[line][i] = new node(line, i);
 			}
         }
+
 		line++;
     }
 }
@@ -40,7 +45,9 @@ lab::~lab(){}
 
 void lab::connectNodes(){
 	for(int i = 0; i < this->height; i++){
+        //cout << "iiiiiiii:" << i << endl;
 		for(int j = 0; j < this->width; j++){
+            //cout << "j:" << j << endl;
 			if(this->labyrinth[i][j] != nullptr){
 				if(i == 0){
 					this->labyrinth[i][j]->n = nullptr;
@@ -60,7 +67,7 @@ void lab::connectNodes(){
 				else{
 					this->labyrinth[i][j]->e = this->labyrinth[i][j+1];
 				}
-				if(i == this->height){
+				if(i == this->height-1){
 					this->labyrinth[i][j]->s = nullptr;
 				}
 				else{
@@ -136,36 +143,10 @@ void lab::findStartAndEnd(){
 	}
 }
 
-void lab::printLab(vector<node*> path){
-	int stepOn = 0;
-
-	for(int i = 0; i < this->height; i++){
-		for(int j = 0; j < this->width; j++){
-			if(this->labyrinth[i][j] == nullptr){
-				cout << "#";
-			}
-			else{
-				for(unsigned int k = 0; k < path.size(); k++){
-					if(this->labyrinth[i][j] == path[k]){
-						if(stepOn == 0){
-							cout << "r";
-							stepOn = 1;
-						}
-					}
-				}
-				if(!stepOn){
-					cout << " ";
-				}
-				stepOn = 0;
-			}
-		}
-		cout << endl;
-	}
-}
-
-void lab::startRobots(int type, void* args){
+void lab::startRobots(int type){
+    /*int type = 1;
 	//erzeugt ein this-> für static function
-	lab *das = static_cast<lab*>(args);
+    lab *das = static_cast<lab*>(args);
 
 	das->robots.resize(3);
 
@@ -174,7 +155,7 @@ void lab::startRobots(int type, void* args){
 	//r.lock();
 
 	for(i = 0; i < 3; i++){
-		if(das->robots[i] == nullptr){
+		if(das->robots[i] != nullptr){
 			switch(type){
 				case 1:
 					das->robots[i] = new robot_left;
@@ -196,47 +177,10 @@ void lab::startRobots(int type, void* args){
 	das->robots[i]->findPath(das->start, das->end);
 
 	das->printLab(das->robots[i]->path);
+*/
 }
 
-void startMazerun(int argc, char* argv[]){
-    int cmd;
-	int error = 0;
-    int cmdOptt[3];
-    string temp;
-    int tempNum;
-
-
-    while((cmd = getopt(argc, argv, "t:h")) != EOF){
-        switch(cmd){
-            case 't':
-                temp = CharAToString(optarg);
-                tempNum = stoi(temp);
-                if(cmdOptt[tempNum]){
-                    error = 1;
-                    break;
-                }
-                cmdOptt[tempNum] = 1;
-                break;
-            case 'h':
-                print_usage(argv[0]);
-                break;
-            default:
-                assert(0);
-        }
-    }
-
-    if(error){
-        print_usage(argv[0]);
-    }
-
-    if(argc < optind + 1){
-        print_usage(argv[0]);
-    }
-
-    //we want the name of the file saved to the string variable mazefile
-    string mazefile(argv[optind]);
-
-	//string mazefile = "maze1_small.txt";
+void startMazerun(string mazefile, int robo[3]){
 
     lab *labyrinth = new lab(mazefile);
 
@@ -244,26 +188,29 @@ void startMazerun(int argc, char* argv[]){
 
     labyrinth->findStartAndEnd();
 
-	//labyrinth->printLab();
+/*
+    for(int i = 0; i < 3; i++){
+        cout << robo[i] << endl;
+    }
 
+*/
 
-	if(cmdOptt[0] == 1){
-		thread th1(labyrinth->startRobots, 1, labyrinth);
+	if(robo[0] == 1){
+		thread th1(labyrinth->startRobots, 1);
 		th1.join();
 	}
-	if(cmdOptt[1] == 1){
-		thread th2(labyrinth->startRobots, 2, labyrinth);
+	if(robo[1] == 1){
+		thread th2(labyrinth->startRobots, 2);
 		th2.join();
 	}
-	if(cmdOptt[2] == 1){
-		thread th3(labyrinth->startRobots, 3, labyrinth);
+	if(robo[2] == 1){
+		thread th3(labyrinth->startRobots, 3);
 		th3.join();
 	}
 
-
 	//labyrinth->startRobots(1, labyrinth);
 
-	delete labyrinth;
+    delete labyrinth;
 }
 
 string CharAToString(char* arr){
