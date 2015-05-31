@@ -2,6 +2,7 @@
 #include <getopt.h>
 #include <assert.h>
 #include <thread>
+#include <cstring>
 
 #define NUMROBOTS 3;
 
@@ -144,7 +145,7 @@ void lab::printLab(vector<node*> path){
 				cout << "#";
 			}
 			else{
-				for(int k = 0; k < path.size(); k++){
+				for(unsigned int k = 0; k < path.size(); k++){
 					if(this->labyrinth[i][j] == path[k]){
 						if(stepOn == 0){
 							cout << "r";
@@ -165,7 +166,7 @@ void lab::printLab(vector<node*> path){
 void lab::startRobots(int type, void* args){
 	//erzeugt ein this-> für static function
 	lab *das = static_cast<lab*>(args);
-	
+
 	das->robots.resize(3);
 
 	int i;
@@ -201,11 +202,10 @@ void startMazerun(int argc, char* argv[]){
     int cmd;
 	int error = 0;
     int cmdOptt[3];
-	int numRobots = 0;
     string temp;
     int tempNum;
 
-	/*
+
     while((cmd = getopt(argc, argv, "t:h")) != EOF){
         switch(cmd){
             case 't':
@@ -216,7 +216,6 @@ void startMazerun(int argc, char* argv[]){
                     break;
                 }
                 cmdOptt[tempNum] = 1;
-				robots++;
                 break;
             case 'h':
                 print_usage(argv[0]);
@@ -234,11 +233,10 @@ void startMazerun(int argc, char* argv[]){
         print_usage(argv[0]);
     }
 
-    //wi want the name of the file saved to the string variable mazefile
+    //we want the name of the file saved to the string variable mazefile
     string mazefile(argv[optind]);
-	*/
 
-	string mazefile = "maze2_unicursal.txt";
+	//string mazefile = "maze1_small.txt";
 
     lab *labyrinth = new lab(mazefile);
 
@@ -248,22 +246,22 @@ void startMazerun(int argc, char* argv[]){
 
 	//labyrinth->printLab();
 
-	/*
+
 	if(cmdOptt[0] == 1){
-		thread th1(labyrinth->startRobots, 1);
+		thread th1(labyrinth->startRobots, 1, labyrinth);
 		th1.join();
 	}
 	if(cmdOptt[1] == 1){
-		thread th2(labyrinth->startRobots, 2);
+		thread th2(labyrinth->startRobots, 2, labyrinth);
 		th2.join();
 	}
 	if(cmdOptt[2] == 1){
-		thread th3(labyrinth->startRobots, 3);
+		thread th3(labyrinth->startRobots, 3, labyrinth);
 		th3.join();
 	}
-	*/
 
-	labyrinth->startRobots(1, labyrinth);
+
+	//labyrinth->startRobots(1, labyrinth);
 
 	delete labyrinth;
 }
