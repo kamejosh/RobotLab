@@ -21,9 +21,9 @@ lab::lab(string name){
 			}
 
 			once = 1;
-			this->width = tempvalue.length()-1;
+			this->width = (int)tempvalue.length()-1;
             //cout << this->width << endl;
-			this->height = tempvalue.length()-1;
+			this->height = (int)tempvalue.length()-1;
             //cout << this->height << endl;
 		}
 
@@ -144,7 +144,8 @@ void lab::findStartAndEnd(){
 }
 
 void lab::startRobots(int type){
-    /*int type = 1;
+	cout << "check" << endl;
+	/*
 	//erzeugt ein this-> für static function
     lab *das = static_cast<lab*>(args);
 
@@ -155,7 +156,7 @@ void lab::startRobots(int type){
 	//r.lock();
 
 	for(i = 0; i < 3; i++){
-		if(das->robots[i] != nullptr){
+		if(das->robots[i] == nullptr){
 			switch(type){
 				case 1:
 					das->robots[i] = new robot_left;
@@ -178,21 +179,21 @@ void lab::startRobots(int type){
 
 	das->printLab(das->robots[i]->path);
 */
+	return;
 }
 
 void startMazerun(string mazefile, int robo[3]){
-
+	cout << "hier" << endl;
     lab *labyrinth = new lab(mazefile);
-
+	cout << "da" << endl;
 	labyrinth->connectNodes();
-
+	cout << "oder" << endl;
     labyrinth->findStartAndEnd();
-
+	cout << "drüben" << endl;
 /*
     for(int i = 0; i < 3; i++){
         cout << robo[i] << endl;
     }
-
 */
 
 	if(robo[0] == 1){

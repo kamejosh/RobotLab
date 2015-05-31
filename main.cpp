@@ -10,6 +10,8 @@ int main(int argc, char* argv[]){
     int cmdOptt[3] = {0,0,0};
     string temp;
     int tempNum;
+	
+	argc = 3;
 
     while((cmd = getopt(argc, argv, "t:h")) != EOF){
         switch(cmd){
@@ -20,7 +22,7 @@ int main(int argc, char* argv[]){
                     error = 1;
                     break;
                 }
-                cmdOptt[tempNum] = 1;
+                cmdOptt[tempNum - 1] = 1;
                 break;
             case 'h':
                 print_usage(argv[0]);
@@ -40,6 +42,8 @@ int main(int argc, char* argv[]){
 
     //we want the name of the file saved to the string variable mazefile
     string mazefile(argv[optind]);
+	
+	cout << mazefile << endl;
 
     startMazerun(mazefile, cmdOptt);
 
