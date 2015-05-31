@@ -146,8 +146,10 @@ void lab::printLab(vector<node*> path){
 			else{
 				for(int k = 0; k < path.size(); k++){
 					if(this->labyrinth[i][j] == path[k]){
-						cout << "r";
-						stepOn = 1;
+						if(stepOn == 0){
+							cout << "r";
+							stepOn = 1;
+						}
 					}
 				}
 				if(!stepOn){
@@ -236,7 +238,7 @@ void startMazerun(int argc, char* argv[]){
     string mazefile(argv[optind]);
 	*/
 
-	string mazefile = "maze1_small.txt";
+	string mazefile = "maze2_unicursal.txt";
 
     lab *labyrinth = new lab(mazefile);
 
