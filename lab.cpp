@@ -152,7 +152,7 @@ void lab::printLab(vector<node*> path){
 				cout << "#";
 			}
 			else{
-				for(int k = 0; k < path.size(); k++){
+				for(unsigned int k = 0; k < path.size(); k++){
 					if(this->labyrinth[i][j] == path[k]){
                         if(stepOn == 0){
     						cout << "r";
