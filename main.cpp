@@ -20,7 +20,7 @@ int main(int argc, char* argv[]){
             case 't':
                 temp = CharAToString(optarg);
                 tempNum = stoi(temp);
-                if(cmdOptt[tempNum]){
+                if(cmdOptt[tempNum-1]){
                     error = 1;
                     break;
                 }
