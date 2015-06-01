@@ -12,6 +12,8 @@ int main(int argc, char* argv[]){
     int tempNum;
 	
 	argc = 3;
+	//argv[0] = "mazerunner";
+	//argv[1] = "-t1";
 
     while((cmd = getopt(argc, argv, "t:h")) != EOF){
         switch(cmd){

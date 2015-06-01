@@ -143,11 +143,55 @@ void lab::findStartAndEnd(){
 	}
 }
 
-void lab::startRobots(int type){
-	cout << "check" << endl;
-	/*
+void lab::printLab(vector<node*> path){
+	int stepOn = 0;
+
+	for(int i = 0; i < this->height; i++){
+		for(int j = 0; j < this->width; j++){
+			if(this->labyrinth[i][j] == nullptr){
+				cout << "#";
+			}
+			else{
+				for(int k = 0; k < path.size(); k++){
+					if(this->labyrinth[i][j] == path[k]){
+                        if(stepOn == 0){
+    						cout << "r";
+    						stepOn = 1;
+                        }
+					}
+				}
+				if(!stepOn){
+					cout << " ";
+				}
+				stepOn = 0;
+			}
+		}
+		cout << endl;
+	}
+}
+
+void lab::startRunning(int robo[3]){
+    if(robo[0] == 1){
+		//cout << "hier" << endl;
+		thread th1(this->startRobots, 1, this);
+		th1.join();
+	}
+	if(robo[1] == 1){
+		//cout << "da" << endl;
+		thread th2(this->startRobots, 2, this);
+		th2.join();
+	}
+	if(robo[2] == 1){
+		//cout << "dort" << endl;
+		thread th3(this->startRobots, 3, this);
+		th3.join();
+	}
+}
+
+void lab::startRobots(int type, void* args){
+
 	//erzeugt ein this-> für static function
-    lab *das = static_cast<lab*>(args);
+	lab *das = static_cast<lab*>(args);
 
 	das->robots.resize(3);
 
@@ -175,27 +219,29 @@ void lab::startRobots(int type){
 	}
 
 	//r.unlock();
+
 	das->robots[i]->findPath(das->start, das->end);
 
 	das->printLab(das->robots[i]->path);
-*/
-	return;
+
+	cout << "robo!" << endl;
 }
 
+
 void startMazerun(string mazefile, int robo[3]){
-	cout << "hier" << endl;
+	//cout << "hier" << endl;
     lab *labyrinth = new lab(mazefile);
-	cout << "da" << endl;
+	//cout << "da" << endl;
 	labyrinth->connectNodes();
-	cout << "oder" << endl;
+	//cout << "oder" << endl;
     labyrinth->findStartAndEnd();
-	cout << "drüben" << endl;
+	//cout << "drüben" << endl;
 /*
     for(int i = 0; i < 3; i++){
         cout << robo[i] << endl;
     }
 */
-
+/*
 	if(robo[0] == 1){
 		thread th1(labyrinth->startRobots, 1);
 		th1.join();
@@ -208,9 +254,9 @@ void startMazerun(string mazefile, int robo[3]){
 		thread th3(labyrinth->startRobots, 3);
 		th3.join();
 	}
-
+*/
 	//labyrinth->startRobots(1, labyrinth);
-
+	labyrinth->startRunning(robo);
     delete labyrinth;
 }
 

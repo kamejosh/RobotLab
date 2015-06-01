@@ -20,7 +20,7 @@ public:
     void findStartAndEnd();
     void printLab(vector<node*> path);
     void connectNodes();
-	static void startRobots(int type);
+    static void startRobots(int type, void* args);
     void startRunning(int robo[3]);
 private:
     vector<vector<node*>> labyrinth;
