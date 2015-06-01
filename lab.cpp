@@ -152,7 +152,7 @@ void lab::printLab(vector<node*> path){
 				cout << "#";
 			}
 			else{
-				for(int k = 0; k < path.size(); k++){
+				for(unsigned int k = 0; k < path.size(); k++){
 					if(this->labyrinth[i][j] == path[k]){
                         if(stepOn == 0){
     						cout << "r";
@@ -173,17 +173,17 @@ void lab::printLab(vector<node*> path){
 void lab::startRunning(int robo[3]){
     if(robo[0] == 1){
 		//cout << "hier" << endl;
-		thread th1(this->startRobots, 1, this);
+		thread th1(&this->startRobots, 1, this);
 		th1.join();
 	}
 	if(robo[1] == 1){
 		//cout << "da" << endl;
-		thread th2(this->startRobots, 2, this);
+		thread th2(&this->startRobots, 2, this);
 		th2.join();
 	}
 	if(robo[2] == 1){
 		//cout << "dort" << endl;
-		thread th3(this->startRobots, 3, this);
+		thread th3(&this->startRobots, 3, this);
 		th3.join();
 	}
 }
