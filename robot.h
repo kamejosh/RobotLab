@@ -31,7 +31,7 @@ class hubot : public robot{
 public:
 	hubot();
 	~hubot();
-	//vector<node*> findPath(node*, node*);
+	void findPath(node*, node*);
 };
 
 class joshbot : public robot{

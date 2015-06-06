@@ -2,6 +2,7 @@
 #include <getopt.h>
 #include <assert.h>
 #include <thread>
+#include <cstring>
 
 #define NUMROBOTS 3;
 
@@ -144,7 +145,7 @@ void lab::printLab(vector<node*> path){
 				cout << "#";
 			}
 			else{
-				for(int k = 0; k < path.size(); k++){
+				for(unsigned int k = 0; k < path.size(); k++){
 					if(this->labyrinth[i][j] == path[k]){
 						cout << "r";
 						stepOn = 1;
@@ -163,7 +164,7 @@ void lab::printLab(vector<node*> path){
 void lab::startRobots(int type, void* args){
 	//erzeugt ein this-> für static function
 	lab *das = static_cast<lab*>(args);
-	
+
 	das->robots.resize(3);
 
 	int i;
