@@ -134,49 +134,59 @@ void hubot::findPath(node *now, node *finish) {
 		return;
 	}
 
-	if (now->n == nullptr && now->e == nullptr && now->w == nullptr) {
-		return;
-	}
+	else {
 
-	else if (now->n == nullptr && now->e == nullptr && now->s == nullptr) {
-		return;
-	}
+		if (this->steps != 0) {
 
-	else if (now->w == nullptr && now->e == nullptr && now->s == nullptr) {
-		return;
-	}
+			if (now->n == nullptr && now->e == nullptr && now->w == nullptr) {
+				return;
+			}
 
-	else if (now->w == nullptr && now->n == nullptr && now->s == nullptr) {
-		return;
-	}
+			else if (now->n == nullptr && now->e == nullptr && now->s == nullptr) {
+				return;
+			}
 
-	if (now->n == finish) {
-		findPath(now->n, finish);
-	}
-	else if (now->e == finish) {
-		findPath(now->e, finish);
-	}
-	else if (now->s == finish) {
-		findPath(now->s, finish);
-	}
-	else if (now->w == finish) {
-		findPath(now->w, finish);
-	}
+			else if (now->w == nullptr && now->e == nullptr && now->s == nullptr) {
+				return;
+			}
 
-	if (now->n != nullptr) {
-		findPath(now->n, finish);
-	}
+			else if (now->w == nullptr && now->n == nullptr && now->s == nullptr) {
+				return;
+			}
 
-	if (now->e != nullptr) {
-		findPath(now->e, finish);
-	}
+		}
 
-	if (now->s != nullptr) {
-		findPath(now->s, finish);
-	}
+		if (now->n == finish) {
+			findPath(now->n, finish);
+		}
+		else if (now->e == finish) {
+			findPath(now->e, finish);
+		}
+		else if (now->s == finish) {
+			findPath(now->s, finish);
+		}
+		else if (now->w == finish) {
+			findPath(now->w, finish);
+		}
 
-	if (now->w != nullptr) {
-		findPath(now->w, finish);
+		if (now->n != nullptr) {
+			findPath(now->n, finish);
+		}
+
+		if (now->e != nullptr) {
+			findPath(now->e, finish);
+		}
+
+		if (now->s != nullptr) {
+			findPath(now->s, finish);
+		}
+
+		if (now->w != nullptr) {
+			findPath(now->w, finish);
+		}
+
+		this->steps++;
+
 	}
 
 }
