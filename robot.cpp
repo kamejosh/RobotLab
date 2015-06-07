@@ -193,6 +193,8 @@ void hubot::findPath(node *now, node *finish) {
 			findPath(now->w, finish);
 		}
 
+		//test
+
 	}
 
 }
