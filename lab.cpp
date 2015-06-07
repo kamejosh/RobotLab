@@ -248,7 +248,7 @@ void lab::startRobots(int type){
 					this->robots[i] = new hubot;
 					break;
 				case 3:
-					this->robots[i] = new joshbot;
+					this->robots[i] = new robot_right;
 					break;
 				default:
 					break;

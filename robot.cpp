@@ -212,291 +212,114 @@ void hubot::findPath(node *now, node *finish) {
 
 }
 
-joshbot::joshbot(){}
-joshbot::~joshbot(){}
+robot_right::robot_right(){}
+robot_right::~robot_right(){}
 
-//Pledge Algorithmus
-void joshbot::findPath(node* now, node* finish){
-	//calculating in wich direction from the startpoint the finish lies
-	if(this->steps == 0){
-		this->setDirection(now, finish);
-		this->orientation = this->direction;
-	}
+void robot_right::findPath(node* now, node* finish){
 	this->path.push_back(now);
 	if(now == finish){
 		return;
 	}
-	
 	else{
-		if(this->direction == this->orientation && this->turns == 0){
-			switch(this->orientation){
-				case NORTH:
-					if(now->n != nullptr){
-						this->steps++;
-						this->findPath(now->n, finish);
-					}
-					else if(now->w != nullptr){
-						this->turnleft();
-						this->steps++;
-						this->findPath(now->w, finish);
-					}
-					else if(now->e != nullptr){
-						this->turnright();
-						this->steps++;
-						this->findPath(now->e, finish);
-					}
-					else if(now->s != nullptr){
-						this->turnleft();
-						this->turnleft();
-						this->steps++;
-						this->findPath(now->s, finish);
-					}
-					break;
-				case EAST:
-					if(now->e != nullptr){
-						this->steps++;
-						this->findPath(now->e, finish);
-					}
-					else if(now->n != nullptr){
-						this->turnleft();
-						this->steps++;
-						this->findPath(now->n, finish);
-					}
-					else if(now->s != nullptr){
-						this->turnright();
-						this->steps++;
-						this->findPath(now->s, finish);
-					}
-					else if(now->w != nullptr){
-						this->turnleft();
-						this->turnleft();
-						this->steps++;
-						this->findPath(now->w, finish);
-					}
-					break;
-				case SOUTH:
-					if(now->s != nullptr){
-						this->steps++;
-						this->findPath(now->s, finish);
-					}
-					else if(now->e != nullptr){
-						this->turnleft();
-						this->steps++;
-						this->findPath(now->e, finish);
-					}
-					else if(now->w != nullptr){
-						this->turnright();
-						this->steps++;
-						this->findPath(now->w, finish);
-					}
-					else if(now->n != nullptr){
-						this->turnleft();
-						this->turnleft();
-						this->steps++;
-						this->findPath(now->n, finish);
-					}
-					break;
-				case WEST:
-					if(now->w != nullptr){
-						this->steps++;
-						this->findPath(now->w, finish);
-					}
-					else if(now->s != nullptr){
-						this->turnleft();
-						this->steps++;
-						this->findPath(now->s, finish);
-					}
-					else if(now->n != nullptr){
-						this->turnright();
-						this->steps++;
-						this->findPath(now->n, finish);
-					}
-					else if(now->e != nullptr){
-						this->turnleft();
-						this->turnleft();
-						this->steps++;
-						this->findPath(now->e, finish);
-					}
-					break;
-			}
-		}
-		else{
-			if(this->turns < 0){
-				switch(this->orientation){
-					case NORTH:
-						if(now->e != nullptr){
-							turnright();
-							this->steps++;
-							this->findPath(now->e, finish);
-						}
-						else if(now->n != nullptr){
-							this->steps++;
-							this->findPath(now->n, finish);
-						}
-						else if(now->w != nullptr){
-							this->turnleft();
-							this->steps++;
-							this->findPath(now->w, finish);
-						}
-						break;
-					case EAST:
-						if(now->s != nullptr){
-							turnright();
-							this->steps++;
-							this->findPath(now->s, finish);
-						}
-						else if(now->e != nullptr){
-							this->steps++;
-							this->findPath(now->e, finish);
-						}
-						else if(now->n != nullptr){
-							this->turnleft();
-							this->steps++;
-							this->findPath(now->n, finish);
-						}
-						break;
-					case SOUTH:
-						if(now->w != nullptr){
-							turnright();
-							this->steps++;
-							this->findPath(now->w, finish);
-						}
-						else if(now->s != nullptr){
-							this->steps++;
-							this->findPath(now->s, finish);
-						}
-						else if(now->e != nullptr){
-							this->turnleft();
-							this->steps++;
-							this->findPath(now->e, finish);
-						}
-						break;
-					case WEST:
-						if(now->n != nullptr){
-							turnright();
-							this->steps++;
-							this->findPath(now->n, finish);
-						}
-						else if(now->w != nullptr){
-							this->steps++;
-							this->findPath(now->w, finish);
-						}
-						else if(now->s != nullptr){
-							this->turnleft();
-							this->steps++;
-							this->findPath(now->s, finish);
-						}
-						break;
+		switch(this->orientation){
+			case NORTH:
+				if(now->e != nullptr){
+					this->steps++;
+					this->orientation = EAST;
+					findPath(now->e, finish);
+					return;
 				}
-			}
-			else{
-				switch(this->orientation){
-					case NORTH:
-						if(now->w != nullptr){
-							turnleft();
-							this->steps++;
-							this->findPath(now->w, finish);
-						}
-						else if(now->n != nullptr){
-							this->steps++;
-							this->findPath(now->n, finish);
-						}
-						else if(now->e != nullptr){
-							this->turnright();
-							this->steps++;
-							this->findPath(now->e, finish);
-						}
-						break;
-					case EAST:
-						if(now->n != nullptr){
-							turnleft();
-							this->steps++;
-							this->findPath(now->n, finish);
-						}
-						else if(now->e != nullptr){
-							this->steps++;
-							this->findPath(now->e, finish);
-						}
-						else if(now->s != nullptr){
-							this->turnright();
-							this->steps++;
-							this->findPath(now->s, finish);
-						}
-						break;
-					case SOUTH:
-						if(now->e != nullptr){
-							turnleft();
-							this->steps++;
-							this->findPath(now->e, finish);
-						}
-						else if(now->s != nullptr){
-							this->steps++;
-							this->findPath(now->s, finish);
-						}
-						else if(now->w != nullptr){
-							this->turnright();
-							this->steps++;
-							this->findPath(now->w, finish);
-						}
-						break;
-					case WEST:
-						if(now->s != nullptr){
-							turnleft();
-							this->steps++;
-							this->findPath(now->s, finish);
-						}
-						else if(now->w != nullptr){
-							this->steps++;
-							this->findPath(now->w, finish);
-						}
-						else if(now->n != nullptr){
-							this->turnright();
-							this->steps++;
-							this->findPath(now->n, finish);
-						}
-						break;
+				else if(now->n != nullptr){
+					this->steps++;
+					findPath(now->n, finish);
+					return;
 				}
-			}
+				else if(now->w != nullptr){
+					this->steps++;
+					this->orientation = WEST;
+					findPath(now->w, finish);
+					return;
+				}
+				else{
+					this->steps++;
+					this->orientation = SOUTH;
+					findPath(now->s, finish);
+					return;
+				}
+			case EAST:
+				if(now->s != nullptr){
+					this->steps++;
+					this->orientation = SOUTH;
+					findPath(now->s, finish);
+					return;
+				}
+				else if(now->e != nullptr){
+					this->steps++;
+					findPath(now->e, finish);
+					return;
+				}
+				else if(now->n != nullptr){
+					this->steps++;
+					this->orientation = NORTH;
+					findPath(now->n, finish);
+					return;
+				}
+				else{
+					this->steps++;
+					this->orientation = WEST;
+					findPath(now->w, finish);
+					return;
+				}
+			case SOUTH:
+				if(now->w != nullptr){
+					this->steps++;
+					this->orientation = WEST;
+					findPath(now->w, finish);
+					return;
+				}
+				else if(now->s != nullptr){
+					this->steps++;
+					findPath(now->s, finish);
+					return;
+				}
+				else if(now->e != nullptr){
+					this->steps++;
+					this->orientation = EAST;
+					findPath(now->e, finish);
+					return;
+				}
+				else{
+					this->steps++;
+					this->orientation = NORTH;
+					findPath(now->n, finish);
+					return;
+				}
+			case WEST:
+				if(now->n != nullptr){
+					this->steps++;
+					this->orientation = NORTH;
+					findPath(now->n, finish);
+					return;
+				}
+				else if(now->w != nullptr){
+					this->steps++;
+					findPath(now->w, finish);
+					return;
+				}
+				else if(now->s != nullptr){
+					this->steps++;
+					this->orientation = SOUTH;
+					findPath(now->s, finish);
+					return;
+				}
+				else{
+					this->steps++;
+					this->orientation = EAST;
+					findPath(now->e, finish);
+					return;
+				}
+			default:
+				return;
 		}
 	}
-}
-
-void joshbot::setDirection(node *now, node *finish){
-	int tempY = now->x - finish->x;
-	int tempX = now->y - finish->y;
-	if(abs(tempX) > abs(tempY)){
-		if(tempX > 0){
-			this->direction = WEST;
-		}
-		else{
-			this->direction = EAST;
-		}
-	}
-	else if(abs(tempX) < abs(tempY)){
-		if(tempY > 0){
-			this->direction = NORTH;
-		}
-		else{
-			this->direction = SOUTH;
-		}
-	}
-	//same distance
-	else{
-		if(tempX > 0){
-			this->direction = WEST;
-		}
-		else{
-			this->direction = EAST;
-		}
-	}
-}
-
-void joshbot::turnleft(){
-	this->orientation = (this->orientation -1)%4;
-	this->turns--;
-}
-
-void joshbot::turnright(){
-	this->orientation = (this->orientation +1)%4;
-	this->turns++;
 }

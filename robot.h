@@ -36,16 +36,11 @@ public:
 	void findPath(node*, node*);
 };
 
-class joshbot : public robot{
+class robot_right : public robot{
 public:
-	joshbot();
-	~joshbot();
-	int direction;
-	int turns = 0;
-	void turnleft();
-	void turnright();
+	robot_right();
+	~robot_right();
 	void findPath(node* now, node* finish);
-	void setDirection(node* now, node* finish);
 };
 
 #endif
