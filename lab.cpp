@@ -155,7 +155,7 @@ void lab::printLab(vector<node*> path){
 				for(unsigned int k = 0; k < path.size(); k++){
 					if(this->labyrinth[i][j] == path[k]){
                         if(stepOn == 0){
-    						cout << "r";
+    						cout << "\033[31mr\033[0m";
     						stepOn = 1;
                         }
 					}
@@ -170,62 +170,6 @@ void lab::printLab(vector<node*> path){
 	}
 }
 
-void lab::startRunning(int robo[3]){
-    /*if(robo[0] == 1){
-		//cout << "hier" << endl;
-		thread th1(this->startRobots, this, 1);
-		th1.join();
-	}
-	if(robo[1] == 1){
-		//cout << "da" << endl;
-		thread th2(this->startRobots, this, 2);
-		th2.join();
-	}
-	if(robo[2] == 1){
-		//cout << "dort" << endl;
-		thread th3(this->startRobots, this, 3);
-		th3.join();
-	}*/
-}
-/*
-void lab::startRobots(int type, void* args){
-
-	//erzeugt ein this-> für static function
-	lab *das = static_cast<lab*>(args);
-
-	das->robots.resize(3);
-
-	int i;
-
-	//r.lock();
-
-	for(i = 0; i < 3; i++){
-		if(das->robots[i] == nullptr){
-			switch(type){
-				case 1:
-					das->robots[i] = new robot_left;
-					break;
-				case 2:
-					das->robots[i] = new hubot;
-					break;
-				case 3:
-					das->robots[i] = new joshbot;
-					break;
-				default:
-					break;
-			}
-			break;
-		}
-	}
-
-	//r.unlock();
-
-	das->robots[i]->findPath(das->start, das->end);
-
-	das->printLab(das->robots[i]->path);
-
-	cout << "robo!" << endl;
-}*/
 
 void lab::startRobots(int type){
 
@@ -248,7 +192,7 @@ void lab::startRobots(int type){
 					this->robots[i] = new hubot;
 					break;
 				case 3:
-					this->robots[i] = new joshbot;
+					this->robots[i] = new robot_right;
 					break;
 				default:
 					break;
@@ -263,10 +207,27 @@ void lab::startRobots(int type){
 
 	this->printLab(this->robots[i]->path);
 
-	cout << "robo!" << endl;
+    switch(type){
+        case 1:
+            cout << "robot_left needed: " << this->robots[i]->steps << " steps, to find a way out of the maze" << endl;
+            delete this->robots[i];
+            break;
+        case 2:
+            cout << "hubot needed: " << this->robots[i]->steps << " steps, to find a way out of the maze" << endl;
+            delete this->robots[i];
+            break;
+        case 3:
+            cout << "robot_right needed: " << this->robots[i]->steps << " steps, to find a way out of the maze" << endl;
+            delete this->robots[i];
+            break;
+        default:
+            break;
+    }
+
 }
 
 void startMazerun(string mazefile, int robo[3]){
+    int started = 0;
 	//cout << "hier" << endl;
     lab *labyrinth = new lab(mazefile);
 	//cout << "da" << endl;
@@ -279,21 +240,30 @@ void startMazerun(string mazefile, int robo[3]){
         cout << robo[i] << endl;
     }
 */
-/*
+
+    auto fun = [&labyrinth](int n){labyrinth->startRobots(n);};
+
 	if(robo[0] == 1){
-		thread th1(labyrinth->startRobots, 1);
+        started++;
+		thread th1(fun, 1);
 		th1.join();
 	}
 	if(robo[1] == 1){
-		thread th2(labyrinth->startRobots, 2);
+        started++;
+		thread th2(fun, 2);
 		th2.join();
 	}
 	if(robo[2] == 1){
-		thread th3(labyrinth->startRobots, 3);
+        started++;
+		thread th3(fun, 3);
 		th3.join();
 	}
-*/
-	labyrinth->startRobots(2);
+    if(started == 0){
+        thread thx(fun, 1);
+        thx.join();
+    }
+
+	//labyrinth->startRobots(3);
 	//labyrinth->startRunning(robo);
     delete labyrinth;
 }
@@ -310,6 +280,6 @@ string CharAToString(char* arr){
 }
 
 void print_usage(char *name){
-	fprintf(stderr,"Usage: %s DATEINAME [-t1] [-t2] [-t3] ... [-tN] [-h]\n", name);
+	fprintf(stderr,"Usage: %s DATEINAME [-t1] [-t2] [-t3] [-h]\n", name);
 	exit(EXIT_FAILURE);
 }

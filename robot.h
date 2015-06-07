@@ -12,7 +12,7 @@ public:
 	robot();
 	virtual ~robot();
 	virtual void findPath(node* now, node* finish);
-	enum orientation {NORTH, EAST, WEST, SOUTH};
+	enum orientation {NORTH, EAST, SOUTH, WEST};
 	int orientation = SOUTH;
 	int steps = 0;
 	vector<node*> path;
@@ -35,11 +35,11 @@ public:
 	void findPath(node*, node*);
 };
 
-class joshbot : public robot{
+class robot_right : public robot{
 public:
-	joshbot();
-	~joshbot();
-	//vector<node*> findPath(node*, node*);
+	robot_right();
+	~robot_right();
+	void findPath(node* now, node* finish);
 };
 
 #endif

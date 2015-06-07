@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-std=c++11 -g -Wall -O
+CFLAGS=-pthread -std=c++11 -g -Wall -O
 all: mazerunner
 mazerunner: main.o node.o robot.o lab.o
 	${CC} ${CFLAGS} -o mazerunner main.o node.o robot.o lab.o
