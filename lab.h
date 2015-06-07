@@ -20,7 +20,7 @@ public:
     void findStartAndEnd();
     void printLab(vector<node*> path);
     void connectNodes();
-	static void startRobots(int type, void* args);
+    void startRobots(int type);
 private:
     vector<vector<node*>> labyrinth;
 	vector<robot*> robots;
@@ -28,7 +28,7 @@ private:
     int height;
 };
 
-void startMazerun(int argc, char* argv[]);
+void startMazerun(string mazefile, int robo[3]);
 
 string CharAToString(char* arr);
 void print_usage(char *name);
