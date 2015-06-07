@@ -215,6 +215,22 @@ void hubot::findPath(node *now, node *finish) {
 joshbot::joshbot(){}
 joshbot::~joshbot(){}
 
+//Pledge Algorithmus
 void joshbot::findPath(node* now, node* finish){
-	
+	if(this->steps == 0){
+		int tempX = now->x - finish->x;
+		int tempY = now->y - finish->y;
+		if(tempX > 0 && tempY > 0){
+
+		}
+		else if(tempX < 0 && tempY > 0){
+
+		}
+		else if(tempX > 0 && tempY < 0){
+
+		}
+		else if(tempX < 0 && tempY < 0){
+
+		}
+	}
 }

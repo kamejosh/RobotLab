@@ -39,6 +39,7 @@ class joshbot : public robot{
 public:
 	joshbot();
 	~joshbot();
+	int direction;
 	void findPath(node* now, node* finish);
 };
 
