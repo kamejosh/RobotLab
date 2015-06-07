@@ -127,7 +127,15 @@ hubot::hubot(){}
 hubot::~hubot(){}
 
 void hubot::findPath(node *now, node *finish) {
+
+	for (unsigned int i = 0; i < this->path.size(); i++) {
+		if (now == this->path[i]) {
+			return;
+		}
+	}
+
 	this->path.push_back(now);
+
 
 	if (now == finish) {
 		cout << "found" << endl;
