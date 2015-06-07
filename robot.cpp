@@ -137,7 +137,8 @@ void hubot::findPath(node *now, node *finish) {
 	this->path.push_back(now);
 
 
-	if (now == finish) {
+	if (now == finish || this->found == true) {
+		this->found = true;
 		cout << "found" << endl;
 		return;
 	}
