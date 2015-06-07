@@ -31,6 +31,7 @@ class hubot : public robot{
 public:
 	hubot();
 	~hubot();
+	bool found = false;
 	void findPath(node*, node*);
 };
 
