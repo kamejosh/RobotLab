@@ -21,7 +21,6 @@ public:
     void printLab(vector<node*> path);
     void connectNodes();
     void startRobots(int type);
-    void startRunning(int robo[3]);
 private:
     vector<vector<node*>> labyrinth;
 	vector<robot*> robots;

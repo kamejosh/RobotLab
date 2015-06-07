@@ -13,7 +13,7 @@ int main(int argc, char* argv[]){
 
 	//argv[0] = "mazerunner";
 	//argv[1] = "-t1";
-/*
+
     while((cmd = getopt(argc, argv, "t:h")) != EOF){
         switch(cmd){
             case 't':
@@ -40,12 +40,12 @@ int main(int argc, char* argv[]){
     if(argc < optind + 1){
         print_usage(argv[0]);
     }
-*/
-    //we want the name of the file saved to the string variable mazefile
-    //string mazefile(argv[optind]);
 
-    string mazefile = "maze1_small.txt";
-	cout << mazefile << endl;
+    //we want the name of the file saved to the string variable mazefile
+    string mazefile(argv[optind]);
+
+    //string mazefile = "maze1_small.txt";
+	//cout << mazefile << endl;
 
     startMazerun(mazefile, cmdOptt);
 

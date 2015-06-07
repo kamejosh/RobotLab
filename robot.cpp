@@ -215,7 +215,7 @@ void hubot::findPath(node *now, node *finish) {
 robot_right::robot_right(){}
 robot_right::~robot_right(){}
 
-void robot_right::findPath(node* now, node* finish){
+void robot_right::findPath(node *now, node *finish){
 	this->path.push_back(now);
 	if(now == finish){
 		return;
