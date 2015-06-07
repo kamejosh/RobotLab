@@ -4,7 +4,6 @@
 #include <iostream>
 #include "node.h"
 #include <vector>
-#include <cmath>
 
 using namespace std;
 
