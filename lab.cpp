@@ -171,7 +171,7 @@ void lab::printLab(vector<node*> path){
 }
 
 void lab::startRunning(int robo[3]){
-    if(robo[0] == 1){
+    /*if(robo[0] == 1){
 		//cout << "hier" << endl;
 		thread th1(this->startRobots, this, 1);
 		th1.join();
@@ -185,9 +185,9 @@ void lab::startRunning(int robo[3]){
 		//cout << "dort" << endl;
 		thread th3(this->startRobots, this, 3);
 		th3.join();
-	}
+	}*/
 }
-
+/*
 void lab::startRobots(int type, void* args){
 
 	//erzeugt ein this-> für static function
@@ -225,8 +225,46 @@ void lab::startRobots(int type, void* args){
 	das->printLab(das->robots[i]->path);
 
 	cout << "robo!" << endl;
-}
+}*/
 
+void lab::startRobots(int type){
+
+	//erzeugt ein this-> für static function
+	//lab *das = static_cast<lab*>(args);
+
+	this->robots.resize(3);
+
+	int i;
+
+	//r.lock();
+
+	for(i = 0; i < 3; i++){
+		if(this->robots[i] == nullptr){
+			switch(type){
+				case 1:
+					this->robots[i] = new robot_left;
+					break;
+				case 2:
+					this->robots[i] = new hubot;
+					break;
+				case 3:
+					this->robots[i] = new joshbot;
+					break;
+				default:
+					break;
+			}
+			break;
+		}
+	}
+
+	//r.unlock();
+
+	this->robots[i]->findPath(this->start, this->end);
+
+	this->printLab(this->robots[i]->path);
+
+	cout << "robo!" << endl;
+}
 
 void startMazerun(string mazefile, int robo[3]){
 	//cout << "hier" << endl;
@@ -255,8 +293,8 @@ void startMazerun(string mazefile, int robo[3]){
 		th3.join();
 	}
 */
-	//labyrinth->startRobots(1, labyrinth);
-	labyrinth->startRunning(robo);
+	labyrinth->startRobots(2);
+	//labyrinth->startRunning(robo);
     delete labyrinth;
 }
 
