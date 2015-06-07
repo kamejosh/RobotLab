@@ -157,35 +157,41 @@ void hubot::findPath(node *now, node *finish) {
 		}
 
 		if (now->n == finish) {
+			this->steps++;
 			findPath(now->n, finish);
 		}
 		else if (now->e == finish) {
+			this->steps++;
 			findPath(now->e, finish);
 		}
 		else if (now->s == finish) {
+			this->steps++;
 			findPath(now->s, finish);
 		}
 		else if (now->w == finish) {
+			this->steps++;
 			findPath(now->w, finish);
 		}
 
 		if (now->n != nullptr) {
+			this->steps++;
 			findPath(now->n, finish);
 		}
 
 		if (now->e != nullptr) {
+			this->steps++;
 			findPath(now->e, finish);
 		}
 
 		if (now->s != nullptr) {
+			this->steps++;
 			findPath(now->s, finish);
 		}
 
 		if (now->w != nullptr) {
+			this->steps++;
 			findPath(now->w, finish);
 		}
-
-		this->steps++;
 
 	}
 
