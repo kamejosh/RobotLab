@@ -293,7 +293,7 @@ void startMazerun(string mazefile, int robo[3]){
 		th3.join();
 	}
 */
-	labyrinth->startRobots(2);
+	labyrinth->startRobots(3);
 	//labyrinth->startRunning(robo);
     delete labyrinth;
 }

@@ -4,6 +4,7 @@
 #include <iostream>
 #include "node.h"
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
@@ -12,7 +13,7 @@ public:
 	robot();
 	virtual ~robot();
 	virtual void findPath(node* now, node* finish);
-	enum orientation {NORTH, EAST, WEST, SOUTH};
+	enum orientation {NORTH, EAST, SOUTH, WEST};
 	int orientation = SOUTH;
 	int steps = 0;
 	vector<node*> path;
@@ -40,7 +41,11 @@ public:
 	joshbot();
 	~joshbot();
 	int direction;
+	int turns = 0;
+	void turnleft();
+	void turnright();
 	void findPath(node* now, node* finish);
+	void setDirection(node* now, node* finish);
 };
 
 #endif
