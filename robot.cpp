@@ -218,8 +218,8 @@ joshbot::~joshbot(){}
 //Pledge Algorithmus
 void joshbot::findPath(node* now, node* finish){
 	//calculating in wich direction from the startpoint the finish lies
-	this->setDirection(now, finish);
 	if(this->steps == 0){
+		this->setDirection(now, finish);
 		this->orientation = this->direction;
 	}
 	this->path.push_back(now);
@@ -240,6 +240,11 @@ void joshbot::findPath(node* now, node* finish){
 						this->steps++;
 						this->findPath(now->w, finish);
 					}
+					else if(now->e != nullptr){
+						this->turnright();
+						this->steps++;
+						this->findPath(now->e, finish);
+					}
 					else if(now->s != nullptr){
 						this->turnleft();
 						this->turnleft();
@@ -256,6 +261,11 @@ void joshbot::findPath(node* now, node* finish){
 						this->turnleft();
 						this->steps++;
 						this->findPath(now->n, finish);
+					}
+					else if(now->s != nullptr){
+						this->turnright();
+						this->steps++;
+						this->findPath(now->s, finish);
 					}
 					else if(now->w != nullptr){
 						this->turnleft();
@@ -274,6 +284,11 @@ void joshbot::findPath(node* now, node* finish){
 						this->steps++;
 						this->findPath(now->e, finish);
 					}
+					else if(now->w != nullptr){
+						this->turnright();
+						this->steps++;
+						this->findPath(now->w, finish);
+					}
 					else if(now->n != nullptr){
 						this->turnleft();
 						this->turnleft();
@@ -290,6 +305,11 @@ void joshbot::findPath(node* now, node* finish){
 						this->turnleft();
 						this->steps++;
 						this->findPath(now->s, finish);
+					}
+					else if(now->n != nullptr){
+						this->turnright();
+						this->steps++;
+						this->findPath(now->n, finish);
 					}
 					else if(now->e != nullptr){
 						this->turnleft();
@@ -301,71 +321,141 @@ void joshbot::findPath(node* now, node* finish){
 			}
 		}
 		else{
-			switch(this->orientation){
-				case NORTH:
-					if(now->e != nullptr){
-						turnright();
-						this->steps++;
-						this->findPath(now->e, finish);
-					}
-					else if(now->n != nullptr){
-						this->steps++;
-						this->findPath(now->n, finish);
-					}
-					else if(now->w != nullptr){
-						this->turnleft();
-						this->steps++;
-						this->findPath(now->w, finish);
-					}
-					break;
-				case EAST:
-					if(now->s != nullptr){
-						turnright();
-						this->steps++;
-						this->findPath(now->s, finish);
-					}
-					else if(now->e != nullptr){
-						this->steps++;
-						this->findPath(now->e, finish);
-					}
-					else if(now->n != nullptr){
-						this->turnleft();
-						this->steps++;
-						this->findPath(now->n, finish);
-					}
-					break;
-				case SOUTH:
-					if(now->w != nullptr){
-						turnright();
-						this->steps++;
-						this->findPath(now->w, finish);
-					}
-					else if(now->s != nullptr){
-						this->steps++;
-						this->findPath(now->s, finish);
-					}
-					else if(now->e != nullptr){
-						this->turnleft();
-						this->steps++;
-						this->findPath(now->e, finish);
-					}
-					break;
-				case WEST:
-					if(now->n != nullptr){
-						turnright();
-						this->steps++;
-						this->findPath(now->n, finish);
-					}
-					else if(now->w != nullptr){
-						this->steps++;
-						this->findPath(now->w, finish);
-					}
-					else if(now->s != nullptr){
-						this->turnleft();
-						this->steps++;
-						this->findPath(now->s, finish);
-					}
-					break;
+			if(this->turns < 0){
+				switch(this->orientation){
+					case NORTH:
+						if(now->e != nullptr){
+							turnright();
+							this->steps++;
+							this->findPath(now->e, finish);
+						}
+						else if(now->n != nullptr){
+							this->steps++;
+							this->findPath(now->n, finish);
+						}
+						else if(now->w != nullptr){
+							this->turnleft();
+							this->steps++;
+							this->findPath(now->w, finish);
+						}
+						break;
+					case EAST:
+						if(now->s != nullptr){
+							turnright();
+							this->steps++;
+							this->findPath(now->s, finish);
+						}
+						else if(now->e != nullptr){
+							this->steps++;
+							this->findPath(now->e, finish);
+						}
+						else if(now->n != nullptr){
+							this->turnleft();
+							this->steps++;
+							this->findPath(now->n, finish);
+						}
+						break;
+					case SOUTH:
+						if(now->w != nullptr){
+							turnright();
+							this->steps++;
+							this->findPath(now->w, finish);
+						}
+						else if(now->s != nullptr){
+							this->steps++;
+							this->findPath(now->s, finish);
+						}
+						else if(now->e != nullptr){
+							this->turnleft();
+							this->steps++;
+							this->findPath(now->e, finish);
+						}
+						break;
+					case WEST:
+						if(now->n != nullptr){
+							turnright();
+							this->steps++;
+							this->findPath(now->n, finish);
+						}
+						else if(now->w != nullptr){
+							this->steps++;
+							this->findPath(now->w, finish);
+						}
+						else if(now->s != nullptr){
+							this->turnleft();
+							this->steps++;
+							this->findPath(now->s, finish);
+						}
+						break;
+				}
+			}
+			else{
+				switch(this->orientation){
+					case NORTH:
+						if(now->w != nullptr){
+							turnleft();
+							this->steps++;
+							this->findPath(now->w, finish);
+						}
+						else if(now->n != nullptr){
+							this->steps++;
+							this->findPath(now->n, finish);
+						}
+						else if(now->e != nullptr){
+							this->turnright();
+							this->steps++;
+							this->findPath(now->e, finish);
+						}
+						break;
+					case EAST:
+						if(now->n != nullptr){
+							turnleft();
+							this->steps++;
+							this->findPath(now->n, finish);
+						}
+						else if(now->e != nullptr){
+							this->steps++;
+							this->findPath(now->e, finish);
+						}
+						else if(now->s != nullptr){
+							this->turnright();
+							this->steps++;
+							this->findPath(now->s, finish);
+						}
+						break;
+					case SOUTH:
+						if(now->e != nullptr){
+							turnleft();
+							this->steps++;
+							this->findPath(now->e, finish);
+						}
+						else if(now->s != nullptr){
+							this->steps++;
+							this->findPath(now->s, finish);
+						}
+						else if(now->w != nullptr){
+							this->turnright();
+							this->steps++;
+							this->findPath(now->w, finish);
+						}
+						break;
+					case WEST:
+						if(now->s != nullptr){
+							turnleft();
+							this->steps++;
+							this->findPath(now->s, finish);
+						}
+						else if(now->w != nullptr){
+							this->steps++;
+							this->findPath(now->w, finish);
+						}
+						else if(now->n != nullptr){
+							this->turnright();
+							this->steps++;
+							this->findPath(now->n, finish);
+						}
+						break;
+				}
 			}
 		}
 	}
