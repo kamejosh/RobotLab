@@ -39,7 +39,7 @@ class joshbot : public robot{
 public:
 	joshbot();
 	~joshbot();
-	//vector<node*> findPath(node*, node*);
+	void findPath(node* now, node* finish);
 };
 
 #endif

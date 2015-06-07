@@ -6,7 +6,6 @@ robot::robot(){}
 robot::~robot(){}
 
 void robot::findPath(node* now, node* finish){
-	vector<node*> path;
 	return;
 }
 
@@ -215,3 +214,7 @@ void hubot::findPath(node *now, node *finish) {
 
 joshbot::joshbot(){}
 joshbot::~joshbot(){}
+
+void joshbot::findPath(node* now, node* finish){
+	
+}
