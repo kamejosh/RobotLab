@@ -41,7 +41,13 @@ lab::lab(string name){
     }
 }
 
-lab::~lab(){}
+lab::~lab(){
+    for (unsigned int i = 0; i < this->labyrinth.capacity()-1; i++) {
+        for (unsigned int j = 0; j < this->labyrinth[0].capacity()-1; j++) {
+            delete this->labyrinth[i][j];
+        }
+    }
+}
 
 void lab::connectNodes(){
 	for(int i = 0; i < this->height; i++){
