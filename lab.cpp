@@ -1,10 +1,13 @@
 #include "lab.h"
 #include <thread>
 #include <cstring>
+#include <mutex>
 
 #define NUMROBOTS 3;
 
 using namespace std;
+
+mutex mtx;
 
 lab::lab(string name){
     ifstream filename(name);
@@ -186,7 +189,7 @@ void lab::startRobots(int type){
 
 	int i;
 
-	//r.lock();
+
 
 	for(i = 0; i < 3; i++){
 		if(this->robots[i] == nullptr){
@@ -207,10 +210,11 @@ void lab::startRobots(int type){
 		}
 	}
 
-	//r.unlock();
+
 
 	this->robots[i]->findPath(this->start, this->end);
 
+    mtx.lock();
 	this->printLab(this->robots[i]->path);
 
     switch(type){
@@ -229,6 +233,8 @@ void lab::startRobots(int type){
         default:
             break;
     }
+
+    mtx.unlock();
 
 }
 
