@@ -1,0 +1,8 @@
+Roboter:
+
+robot_left:
+
+hubot:
+Dieser Roboter sucht den Ausgang per Tiefensuche. Wenn er auf einem Feld steht und die Felder um ihn begehbar sind, wird die Funktion rekursiv aufgerufen. Jedes mal wenn der Roboter auf einem neuen Feld steht wird es in einem Array gespeichert damit man abfragen kann ob dieses Feld bereits betretetn wurde. Wenn er merkt das er in einer Sackgasse ist, wird die Funktion beendet. Sobald er den Ausgang gefunden hat wird ein bool auf true gesetzt damit er in den neuen aufgerufen Rekursionen nicht mehr weitersucht.
+
+right_left:
